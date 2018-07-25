@@ -1,0 +1,16 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "Bot for the Kirara Fantasia discord",
+  "main": "app.js",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "twitter": "^1.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Youko",
+  "license": "ISC"
+}
