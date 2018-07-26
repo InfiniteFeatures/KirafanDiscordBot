@@ -24,7 +24,7 @@ client.on("ready", () => {
     discordConnect = true;
 
     //Get the twitter channel (hardcoded)
-    twitChan = client.guilds.find("name", "TheTestServer").channels.find("name", "twitter");
+    twitChan = client.guilds.find("name", "Kirara Fantasia").channels.find("name", "bot-testing");
 
     console.log(`Bot has started`);
 });
