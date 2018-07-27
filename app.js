@@ -4,7 +4,6 @@ const Twitter = require('twitter');
 
 //Get config
 const config = require('./config.json');
-// config.prefix contains the message prefix.
 
 //Get oauth and token
 const secret = require('./secret.json');
@@ -13,7 +12,7 @@ const secret = require('./secret.json');
 
 //Variables
 let discordConnect = false;     //Check if connected to discord
-let twitChan;                   //The channel to post tweets in
+let server;                     //The Kirafan server
 
 //Make client
 const client = new Discord.Client();
@@ -23,10 +22,10 @@ client.on("ready", () => {
     //When the bot logs in successfully.
     discordConnect = true;
 
-    //Get the twitter channel (hardcoded)
-    twitChan = client.guilds.find("name", "Kirara Fantasia").channels.find("name", "bot-testing");
+    //Get the kirafan server (hardcoded)
+    server = client.guilds.get("335416588175933440");
 
-    console.log(`Bot has started`);
+    console.log(`Bot has started on server: ${server.name}`);
 });
 
 client.on("message", async message => {
@@ -43,9 +42,11 @@ client.on("message", async message => {
     const command = args.shift().toLowerCase();
 
     //Commands here
-    if (command === "") {
+    /*if (command === "twitter") {
+        if(message.member.roles.find("name", "Admin")) {
 
-    }
+        }
+    }*/
 
 });
 
@@ -79,7 +80,7 @@ stream.on('data', function(event) {
         }
 
         //Send to discord
-        twitChan.send(`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
+        server.channels.get(config.twitter).send(`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
     }
 });
 
