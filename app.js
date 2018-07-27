@@ -2,8 +2,8 @@
 const Discord = require('discord.js');
 const Twitter = require('twitter');
 
-//Get config
-const config = require('./config.json');
+//Get configuration
+const config = require('./config.js');
 
 //Get oauth and token
 const secret = require('./secret.json');
@@ -35,18 +35,26 @@ client.on("message", async message => {
     if(message.author.bot) return;
 
     //Ignore messages that don't start with the defined prefix
-    if(message.content.indexOf(config.prefix) !== 0) return;
+    if(message.content.indexOf(config.get('prefix')) !== 0) return;
 
     //Split the command and arguments
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(config.get('prefix').length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
     //Commands here
-    /*if (command === "twitter") {
-        if(message.member.roles.find("name", "Admin")) {
-
+    if (command === "twitter") {
+        if (message.member.roles.find("name", "Admin")) {
+            if (args.length > 0) {
+                if (message.mentions.channels.size > 0) {
+                    config.set('twitter', message.mentions.channels[0].id);
+                    message.channel.send(`Twitter stream set to channel <#${message.mentions.channels[0].id}>`)
+                } else if (agrs[0] === "off") {
+                    config.set('twitter', '');
+                    message.channel.send("Twitter stream has been turned off");
+                }
+            }
         }
-    }*/
+    }
 
 });
 
@@ -80,7 +88,10 @@ stream.on('data', function(event) {
         }
 
         //Send to discord
-        server.channels.get(config.twitter).send(`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
+        let channel = server.channels.get(config.get('twitter'));
+        if (channel) {
+            channel.send(`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
+        }
     }
 });
 
