@@ -2,4 +2,4 @@
 Bot for the Kirara Fantasia discord
 
 **I will not add stupid features**  
-**Discuss additions on discord, don't make random pull requests**
+**Discuss additions on discord, don't make random pull requests** (except if it's a fix)
