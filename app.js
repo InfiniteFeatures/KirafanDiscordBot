@@ -23,7 +23,8 @@ client.on("ready", () => {
     discordConnect = true;
 
     //Get the kirafan server (hardcoded)
-    server = client.guilds.get("335416588175933440");
+    //server = client.guilds.get("335416588175933440");
+    server = client.guilds.get("431162393993936917"); //TODO: development only
 
     console.log(`Bot has started on server: ${server.name}`);
 });
