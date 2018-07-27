@@ -60,8 +60,26 @@ stream.on('data', function(event) {
 
     //Make sure we're only handling tweets/retweets by the target
     if (event && event.text && event.user.id_str === '856385582401966080' && discordConnect) {
+        //Get full text
+        let fullText = '';
+        if (event.retweeted_status) { //If retweet, get the text fromt he original tweet
+            fullText += `RT @${event.retweeted_status.user.screen_name}: `; //Manually add retweet marker
+
+            if (event.retweeted_status.extended_tweet) {
+                fullText += event.retweeted_status.extended_tweet.full_text;
+            } else {
+                fullText += event.retweeted_status.text;
+            }
+        } else {
+            if (event.extended_tweet) {
+                fullText = event.extended_tweet.full_text;
+            } else {
+                fullText = event.text;
+            }
+        }
+
         //Send to discord
-        twitChan.send(`${event.text}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
+        twitChan.send(`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
     }
 });
 
