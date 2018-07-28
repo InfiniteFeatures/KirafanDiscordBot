@@ -23,8 +23,7 @@ client.on("ready", () => {
     discordConnect = true;
 
     //Get the kirafan server (hardcoded)
-    //server = client.guilds.get("335416588175933440");
-    server = client.guilds.get("431162393993936917"); //TODO: development only
+    server = client.guilds.get("335416588175933440");
 
     console.log(`Bot has started on server: ${server.name}`);
 });
@@ -49,6 +48,11 @@ client.on("message", async message => {
         }
     }*/
 
+});
+
+//Because errors are bad
+client.on("error", (err) => {
+    console.log(err);
 });
 
 //Make Twitter
