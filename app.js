@@ -48,7 +48,7 @@ client.on("message", async message => {
                 if (message.mentions.channels.size > 0) {
                     config.set('twitter', message.mentions.channels[0].id);
                     message.channel.send(`Twitter stream set to channel <#${message.mentions.channels[0].id}>`)
-                } else if (agrs[0] === "off") {
+                } else if (args[0] === "off") {
                     config.set('twitter', '');
                     message.channel.send("Twitter stream has been turned off");
                 }
