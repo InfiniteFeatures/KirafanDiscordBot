@@ -1,6 +1,6 @@
 //Dependencies
 const Discord = require('discord.js');
-const Twitter = require('twitter');
+const TwitterStream = require('./twitter.js');
 
 //Get configuration
 const config = require('./config.js');
@@ -11,8 +11,7 @@ const secret = require('./secret.json');
 // secret.twitter contains the twitter app oauth keys.
 
 //Variables
-let discordConnect = false;     //Check if connected to discord
-let server;                     //The Kirafan server
+let server;         //The Kirafan server
 
 //Make client
 const client = new Discord.Client();
@@ -20,12 +19,25 @@ const client = new Discord.Client();
 //Client functions
 client.on("ready", () => {
     //When the bot logs in successfully.
-    discordConnect = true;
 
     //Get the kirafan server (hardcoded)
-    server = client.guilds.get("335416588175933440");
-
+    server = client.guilds.get("431162393993936917"); //TODO: development server only
     console.log(`Bot has started on server: ${server.name}`);
+
+    //Setup twitter
+    client.stream = new TwitterStream(secret.twitter);
+    client.stream.on('tweet', (tweet) => {
+        server.channels.get(config.get('twitterChan')).send(tweet).catch(console.error);
+    });
+    client.stream.on('error', (err) => {
+        console.log(err);
+    });
+    if (config.get('twitter') === 'on' && config.get('twitterChan') !== '') {
+        client.stream.start();
+        console.log(`Twitter started on channel ${server.channels.get(config.get('twitterChan')).name}`);
+    } else {
+        console.log("Twitter off");
+    }
 });
 
 client.on("message", async message => {
@@ -41,64 +53,33 @@ client.on("message", async message => {
     const args = message.content.slice(config.get('prefix').length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    //Commands here
+    ///Commands here
     if (command === "twitter") {
         if (message.member.roles.find("name", "Admin")) {
             if (args.length > 0) {
                 if (message.mentions.channels.size > 0) {
-                    config.set('twitter', message.mentions.channels[0].id);
-                    message.channel.send(`Twitter stream set to channel <#${message.mentions.channels[0].id}>`)
+                    config.set('twitterChan', message.mentions.channels.first().id);
+                    message.channel.send(`Twitter stream set to channel ${message.mentions.channels.first()}`).catch(console.error);
+                } else if (args[0] === "on") {
+                    if (config.get('twitterChan') !== '') {
+                        config.set('twitter','on');
+                        client.stream.start();
+                        message.channel.send(`Twitter started on channel ${server.channels.get(config.get('twitterChan'))}`).catch(console.error);
+                    } else {
+                        message.channel.send('Please set a channel to post tweets before starting the twitter stream.').catch(console.error);
+                    }
                 } else if (args[0] === "off") {
-                    config.set('twitter', '');
-                    message.channel.send("Twitter stream has been turned off");
+                    config.set('twitter', 'off');
+                    client.stream.stop();
+                    message.channel.send("Twitter stream has been turned off").catch(console.error);
                 }
+            } else {
+                message.channel.send(`Twitter stream status: ${config.get('twitter')}`).catch(console.error);
             }
         }
     }
 
-});
-
-//Make Twitter
-const twitter = new Twitter(secret.twitter);
-
-//Start a stream following @kirarafantasia
-let stream = twitter.stream('statuses/filter', {follow: '856385582401966080'});
-
-stream.on('data', function(event) {
-    //Whenever the stream receives any kind of data (tweets/retweets by the target, replies to the target, retweets of the target, etc.)
-
-    //Make sure we're only handling tweets/retweets by the target
-    if (event && event.text && event.user.id_str === '856385582401966080' && discordConnect) {
-        //Get full text
-        let fullText = '';
-        if (event.retweeted_status) { //If retweet, get the text fromt he original tweet
-            fullText += `RT @${event.retweeted_status.user.screen_name}: `; //Manually add retweet marker
-
-            if (event.retweeted_status.extended_tweet) {
-                fullText += event.retweeted_status.extended_tweet.full_text;
-            } else {
-                fullText += event.retweeted_status.text;
-            }
-        } else {
-            if (event.extended_tweet) {
-                fullText = event.extended_tweet.full_text;
-            } else {
-                fullText = event.text;
-            }
-        }
-
-        //Send to discord
-        let channel = server.channels.get(config.get('twitter'));
-        if (channel) {
-            channel.send(`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
-        }
-    }
-});
-
-//Because errors are bad
-stream.on('error', function(error) {
-    console.log(error);
 });
 
 //Start the bot
-client.login(secret.token);
+client.login(secret.token).catch(console.error);
