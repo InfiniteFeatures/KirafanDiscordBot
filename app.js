@@ -150,6 +150,17 @@ client.on("message", async message => {
                 message.channel.send("Automatic messages sent at predefined times.").catch(console.error);
             }
         }
+    } else if (command === "channel") {
+        if (message.member.roles.find("name", "Admin")) {
+            if (args.length > 0) {
+                if (message.mentions.channels.size > 0) {
+                    config.set('mainChannel', message.mentions.channels.first().id);
+                    message.channel.send(`Default channel set to ${message.mentions.channels.first()}`).catch(console.error);
+                }
+            } else {
+                message.channel.send(`Current default channel: ${server.channels.get(config.get('mainChannel'))}`).catch(console.error);
+            }
+        }
     }
 });
 
