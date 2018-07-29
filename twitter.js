@@ -22,7 +22,7 @@ class TwitterStream extends EventEmitter {
                 //Whenever the stream receives any kind of data (tweets/retweets by the target, replies to the target, retweets of the target, etc.)
 
                 //Make sure we're only handling tweets/retweets by the target
-                if (event && event.text /*&& event.user.id_str === '856385582401966080'*/) {
+                if (event && event.text && event.user.id_str === '856385582401966080') {
                     console.log('Tweet received!');
                     //Get full text
                     let fullText = '';

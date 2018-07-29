@@ -1,5 +1,8 @@
 {
   "prefix":"+",
-  "twitterChan":"471728498218893327",
-  "twitter":"off"
+  "mainChannel":"471799716418682911",
+  "twitterChannel":"471799716418682911",
+  "twitter":"off",
+  "daily":"off",
+  "reminder":"off"
 }
