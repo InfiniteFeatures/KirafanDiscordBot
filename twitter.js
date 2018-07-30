@@ -44,6 +44,12 @@ class TwitterStream extends EventEmitter {
 
                     //Send to discord
                     this.emit('tweet',`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
+                } else if (event && event.disconnect) {
+                    console.log("Twitter stream disconnected. Reconnecting.");
+                    setTimeout(() => {
+                        this.stop();
+                        this.start();
+                    }, 1000);
                 }
             });
 
@@ -51,6 +57,8 @@ class TwitterStream extends EventEmitter {
             this.stream.on('error', (error) => {
                 this.emit('error', error);
             });
+
+            console.log("Twitter stream start.");
         }
     }
 

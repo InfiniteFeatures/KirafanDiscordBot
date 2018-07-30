@@ -16,6 +16,8 @@ class Timed extends EventEmitter {
                 let day = moment(this.jobs.daily.lastDate()).tz('Asia/Tokyo').format('dddd');
                 this.emit('daily', day);
             },
+            timeZone: 'Asia/Tokyo',
+            start: false,
             context: this
         });
 
@@ -23,7 +25,10 @@ class Timed extends EventEmitter {
             cronTime: '0 23 * * *',
             onTick: function() {
                 this.emit('reminder');
-            }
+            },
+            timeZone: 'Asia/Tokyo',
+            start: false,
+            context: this
         })
     }
 
