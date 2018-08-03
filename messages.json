@@ -1,0 +1,126 @@
+{
+  "daily": {
+    "Monday": {
+      "embed": {
+        "color": 10683610,
+        "thumbnail": {
+          "url": "https://i.imgur.com/jXBSbMf.png"
+        },
+        "title": "Today's Daily Quests",
+        "fields":[
+          {
+            "name":"Moon",
+            "value":"Moon-type seeds and evolution materials"
+          },
+          {
+            "name":"Gold",
+            "value":"Very large amounts of gold"
+          }
+        ]
+      }
+    },
+    "Tuesday": {
+      "embed": {
+        "color": 14354944,
+        "thumbnail": {
+          "url": "https://i.imgur.com/oAn6R8z.png"
+        },
+        "title": "Today's Daily Quests",
+        "fields":[
+          {
+            "name":"Fire",
+            "value":"Fire-type seeds and evolution materials"
+          }
+        ]
+      }
+    },
+    "Wednesday": {
+      "embed": {
+        "color": 2324186,
+        "thumbnail": {
+          "url": "https://i.imgur.com/x2q8VKN.png"
+        },
+        "title": "Today's Daily Quests",
+        "fields":[
+          {
+            "name":"Water",
+            "value":"Water-type seeds and evolution materials"
+          },
+          {
+            "name":"Gold",
+            "value":"Very large amounts of gold"
+          }
+        ]
+      }
+    },
+    "Thursday": {
+      "embed": {
+        "color": 46236,
+        "thumbnail": {
+          "url": "https://i.imgur.com/D0284V8.png"
+        },
+        "title": "Today's Daily Quests",
+        "fields":[
+          {
+            "name":"Wind",
+            "value":"Wind-type seeds and evolution materials"
+          }
+        ]
+      }
+    },
+    "Friday": {
+      "embed": {
+        "color": 16776520,
+        "thumbnail": {
+          "url": "https://i.imgur.com/sJi8qZj.png"
+        },
+        "title": "Today's Daily Quests",
+        "fields":[
+          {
+            "name":"Gold",
+            "value":"Very large amounts of gold"
+          }
+        ]
+      }
+    },
+    "Saturday": {
+      "embed": {
+        "color": 10436352,
+        "thumbnail": {
+          "url": "https://i.imgur.com/ju2UV17.png"
+        },
+        "title": "Today's Daily Quests",
+        "fields":[
+          {
+            "name":"Earth",
+            "value":"Earth-type seeds and evolution materials"
+          },
+          {
+            "name":"Challenge Boss",
+            "value":"5★ Limit Break materials and Etoilium"
+          }
+        ]
+      }
+    },
+    "Sunday": {
+      "embed": {
+        "color": 16755214,
+        "thumbnail": {
+          "url": "https://i.imgur.com/sIgzyyK.png"
+        },
+        "title": "Today's Daily Quests",
+        "fields":[
+          {
+            "name":"Sun",
+            "value":"Sun-type seeds and evolution materials"
+          },
+          {
+            "name":"Challenge Boss",
+            "value":"5★ Limit Break materials and Etoilium"
+          }
+        ]
+      }
+    }
+  },
+  "reminder":"**Reminder**: Only one hour left to complete your dailies!"
+}

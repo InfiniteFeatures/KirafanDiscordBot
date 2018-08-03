@@ -46,29 +46,8 @@ client.on("ready", () => {
     //Setup timed events
     client.timed = new Timed();
 
-    client.timed.on('daily', (day) => {
-        let msg = "**It's a new day!**\n\nToday's daily quests are:\n";
-        switch (day) {
-            case 'Monday': msg += "• Moon\n• Gold";
-                break;
-            case 'Tuesday': msg += "• Fire";
-                break;
-            case 'Wednesday': msg += "• Water\n• Gold";
-                break;
-            case 'Thursday': msg += "• Wind";
-                break;
-            case 'Friday': msg += "• Gold";
-                break;
-            case 'Saturday': msg += "• Earth\n• Challenge Boss";
-                break;
-            case 'Sunday': msg += "• Sun\n Challenge Boss";
-        }
-        server.channels.get(config.get('mainChannel')).send(msg).catch(console.error);
-    });
-
-    client.timed.on('reminder', () => {
-        let msg = "**Reminder**: Only one hour left to complete your dailies!";
-        server.channels.get(config.get('mainChannel')).send(msg).catch(console.error);
+    client.timed.on('tick', (message) => {
+        server.channels.get(config.get('mainChannel')).send(message).catch(console.error);
     });
 
     if (config.get('daily') === 'on') {

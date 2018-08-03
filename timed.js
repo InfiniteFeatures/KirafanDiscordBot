@@ -3,6 +3,8 @@ const EventEmitter = require('events');
 const CronJob = require('cron').CronJob;
 const moment = require('moment-timezone');
 
+let messages = require('./messages.json');
+
 class Timed extends EventEmitter {
 
     constructor() {
@@ -14,7 +16,7 @@ class Timed extends EventEmitter {
             cronTime: '0 0 * * *',
             onTick: function() {
                 let day = moment(this.jobs.daily.lastDate()).tz('Asia/Tokyo').format('dddd');
-                this.emit('daily', day);
+                this.emit('tick', messages.daily[day]);
             },
             timeZone: 'Asia/Tokyo',
             start: false,
@@ -24,7 +26,7 @@ class Timed extends EventEmitter {
         this.jobs.reminder = new CronJob({
             cronTime: '0 23 * * *',
             onTick: function() {
-                this.emit('reminder');
+                this.emit('tick', messages.reminder);
             },
             timeZone: 'Asia/Tokyo',
             start: false,
