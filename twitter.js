@@ -1,6 +1,7 @@
 //Dependencies
 const EventEmitter = require('events');
 const Twitter = require('twitter');
+const timestamp = require('console-timestamp');
 
 class TwitterStream extends EventEmitter {
 
@@ -23,7 +24,7 @@ class TwitterStream extends EventEmitter {
 
                 //Make sure we're only handling tweets/retweets by the target
                 if (event && event.text && event.user.id_str === '856385582401966080') {
-                    console.log('Tweet received!');
+                    console.log("[DD-MM-YY hh:mm] Tweet received!".timestamp);
                     //Get full text
                     let fullText = '';
                     if (event.retweeted_status) { //If retweet, get the text fromt he original tweet
@@ -45,17 +46,15 @@ class TwitterStream extends EventEmitter {
                     //Send to discord
                     this.emit('tweet',`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
                 } else if (event && event.disconnect) {
-                    console.log("Twitter stream disconnected. Reconnecting.");
-                    setTimeout(() => {
-                        this.stop();
-                        this.start();
-                    }, 1000);
+                    console.log("[DD-MM-YY hh:mm] Twitter stream disconnected.".timestamp);
+                    this.restart();
                 }
             });
 
             //Because errors are bad
             this.stream.on('error', (error) => {
-                this.emit('error', error);
+                console.error("[DD-MM-YY hh:mm] Twitter error:".timestamp,error);
+                this.restart();
             });
 
             console.log("Twitter stream start.");
@@ -66,7 +65,16 @@ class TwitterStream extends EventEmitter {
         if (this.isOn) {
             this.stream.destroy();
             this.isOn = false;
+            console.log("Twitter stream stop.");
         }
+    }
+
+    restart() {
+        console.log("Restarting");
+        setTimeout(() => {
+            this.stop();
+            this.start();
+        }, 1000);
     }
 
 }
