@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const TwitterStream = require('./twitter.js');
 const Timed = require('./timed.js');
+const timestamp = require('console-timestamp');
 
 //Get configuration
 const config = require('./config.js');
@@ -29,7 +30,7 @@ client.on("ready", () => {
     client.stream = new TwitterStream(secret.twitter);
 
     client.stream.on('tweet', (tweet) => {
-        server.channels.get(config.get('twitterChannel')).send(tweet).catch(console.error);
+        server.channels.get(config.get('twitterChannel')).send(tweet).catch(client.error);
     });
 
     client.stream.on('error', (err) => {
@@ -47,7 +48,7 @@ client.on("ready", () => {
     client.timed = new Timed();
 
     client.timed.on('tick', (message) => {
-        server.channels.get(config.get('mainChannel')).send(message).catch(console.error);
+        server.channels.get(config.get('mainChannel')).send(message).catch(client.error);
     });
 
     if (config.get('daily') === 'on') {
@@ -84,18 +85,18 @@ client.on("message", async message => {
             if (args.length > 0) {
                 if (message.mentions.channels.size > 0) {
                     config.set('twitterChannel', message.mentions.channels.first().id);
-                    message.channel.send(`Twitter stream set to channel ${message.mentions.channels.first()}`).catch(console.error);
+                    message.channel.send(`Twitter stream set to channel ${message.mentions.channels.first()}`).catch(client.error);
                 } else if (args[0] === "on") {
                     config.set('twitter','on');
                     client.stream.start();
-                    message.channel.send(`Twitter started on channel ${server.channels.get(config.get('twitterChannel'))}`).catch(console.error);
+                    message.channel.send(`Twitter started on channel ${server.channels.get(config.get('twitterChannel'))}`).catch(client.error);
                 } else if (args[0] === "off") {
                     config.set('twitter', 'off');
                     client.stream.stop();
-                    message.channel.send("Twitter stream has been turned off").catch(console.error);
+                    message.channel.send("Twitter stream has been turned off").catch(client.error);
                 }
             } else {
-                message.channel.send(`Twitter stream status: ${config.get('twitter')}`).catch(console.error);
+                message.channel.send(`Twitter stream status: ${config.get('twitter')}`).catch(client.error);
             }
         }
     } else if (command === "timed") {
@@ -107,26 +108,26 @@ client.on("message", async message => {
                         if (!client.timed.status(job)) {
                             if (client.timed.start(job)) {
                                 config.set(job, 'on');
-                                message.channel.send(`Timed job \`${job}\` started.`).catch(console.error);
+                                message.channel.send(`Timed job \`${job}\` started.`).catch(client.error);
                             } else {
-                                message.channel.send(`Timed job \`${job}\` does not exist.`).catch(console.error);
+                                message.channel.send(`Timed job \`${job}\` does not exist.`).catch(client.error);
                             }
                         } else {
-                            message.channel.send(`Timed job \`${job}\` is already running.`).catch(console.error);
+                            message.channel.send(`Timed job \`${job}\` is already running.`).catch(client.error);
                         }
                     } else if (status === 'off') {
                         if (client.timed.stop(job)) {
                             config.set(job, 'off');
-                            message.channel.send(`Timed job \`${job}\` stopped.`).catch(console.error);
+                            message.channel.send(`Timed job \`${job}\` stopped.`).catch(client.error);
                         } else {
-                            message.channel.send(`Timed job \`${job}\` does not exist.`).catch(console.error);
+                            message.channel.send(`Timed job \`${job}\` does not exist.`).catch(client.error);
                         }
                     }
                 } else {
-                    message.channel.send(`Timed job \`${job}\` is ${client.timed.status(job) ? 'running' : 'not running (or might not exist)'}.`).catch(console.error);
+                    message.channel.send(`Timed job \`${job}\` is ${client.timed.status(job) ? 'running' : 'not running (or might not exist)'}.`).catch(client.error);
                 }
             } else {
-                message.channel.send("Automatic messages sent at predefined times.").catch(console.error);
+                message.channel.send("Automatic messages sent at predefined times.").catch(client.error);
             }
         }
     } else if (command === "channel") {
@@ -134,18 +135,26 @@ client.on("message", async message => {
             if (args.length > 0) {
                 if (message.mentions.channels.size > 0) {
                     config.set('mainChannel', message.mentions.channels.first().id);
-                    message.channel.send(`Default channel set to ${message.mentions.channels.first()}`).catch(console.error);
+                    message.channel.send(`Default channel set to ${message.mentions.channels.first()}`).catch(client.error);
                 }
             } else {
-                message.channel.send(`Current default channel: ${server.channels.get(config.get('mainChannel'))}`).catch(console.error);
+                message.channel.send(`Current default channel: ${server.channels.get(config.get('mainChannel'))}`).catch(client.error);
             }
         }
     }
 });
 
+client.error = function(error) {
+    console.error("[DD-MM-YY hh:mm] Discord error:",error);
+};
+
+client.warn = function(warn) {
+    console.error("[DD-MM-YY hh:mm] Discord warning:",warn);
+};
+
 //Because errors are bad
-client.on("error", console.error);
-client.on("warn", console.warn);
+client.on("error", client.error);
+client.on("warn", client.warn);
 
 //Start the bot
-client.login(secret.token).catch(console.error);
+client.login(secret.token).catch(client.error);
