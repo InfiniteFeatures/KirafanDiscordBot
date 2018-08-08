@@ -145,11 +145,11 @@ client.on("message", async message => {
 });
 
 client.error = function(error) {
-    console.error("[DD-MM-YY hh:mm] Discord error:",error);
+    console.error("[DD-MM-YY hh:mm] Discord error:".timestamp,error);
 };
 
 client.warn = function(warn) {
-    console.error("[DD-MM-YY hh:mm] Discord warning:",warn);
+    console.error("[DD-MM-YY hh:mm] Discord warning:".timestamp,warn);
 };
 
 //Because errors are bad
