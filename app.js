@@ -24,7 +24,7 @@ client.on("ready", () => {
 
     //Get the kirafan server (hardcoded)
     server = client.guilds.get("335416588175933440");
-    console.log(`Bot has started on server: ${server.name}`);
+    client.log(`Bot has started on server: ${server.name}`);
 
     //Setup twitter
     client.stream = new TwitterStream(secret.twitter);
@@ -33,15 +33,11 @@ client.on("ready", () => {
         server.channels.get(config.get('twitterChannel')).send(tweet).catch(client.error);
     });
 
-    client.stream.on('error', (err) => {
-        console.log(err);
-    });
-
     if (config.get('twitter') === 'on') {
         client.stream.start();
-        console.log(`Twitter started on channel ${server.channels.get(config.get('twitterChannel')).name}`);
+        client.log(`Twitter started on channel ${server.channels.get(config.get('twitterChannel')).name}`);
     } else {
-        console.log("Twitter off");
+        client.log("Twitter off");
     }
 
     //Setup timed events
@@ -53,16 +49,16 @@ client.on("ready", () => {
 
     if (config.get('daily') === 'on') {
         client.timed.start('daily');
-        console.log("Daily announcement on");
+        client.log("Daily announcement on");
     } else {
-        console.log("Daily announcement off");
+        client.log("Daily announcement off");
     }
 
     if (config.get('reminder') === 'on') {
         client.timed.start('reminder');
-        console.log("Daily reminder on");
+        client.log("Daily reminder on");
     } else {
-        console.log("Daily reminder off");
+        client.log("Daily reminder off");
     }
 });
 
@@ -144,12 +140,16 @@ client.on("message", async message => {
     }
 });
 
+client.log = function(msg) {
+    console.log("[DD-MM-YY hh:mm]".timestamp,msg);
+};
+
 client.error = function(error) {
     console.error("[DD-MM-YY hh:mm] Discord error:".timestamp,error);
 };
 
 client.warn = function(warn) {
-    console.error("[DD-MM-YY hh:mm] Discord warning:".timestamp,warn);
+    console.warn("[DD-MM-YY hh:mm] Discord warning:".timestamp,warn);
 };
 
 //Because errors are bad
