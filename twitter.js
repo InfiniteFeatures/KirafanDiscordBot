@@ -2,6 +2,7 @@
 const EventEmitter = require('events');
 const Twitter = require('twitter');
 const timestamp = require('console-timestamp');
+const CronJob = require('cron').CronJob;
 
 class TwitterStream extends EventEmitter {
 
@@ -11,6 +12,17 @@ class TwitterStream extends EventEmitter {
         this.twitter = new Twitter(auth);
         this.stream = null;
         this.isOn = false;
+
+        //Reset the stream every 12 hours (at 3:00 and 15:00) because twitter is a huge shithead and disconnects without telling us
+        this.timedReset = new CronJob({
+            cronTime: '0 3,15 * * *',
+            onTick: function() {
+                this.restart();
+            },
+            timeZone: 'Asia/Tokyo',
+            start: false,
+            context: this
+        })
     }
 
     start() {
@@ -57,7 +69,9 @@ class TwitterStream extends EventEmitter {
                 this.restart();
             });
 
-            console.log("Twitter stream start.");
+            this.timedReset.start();
+
+            console.log("[DD-MM-YY hh:mm] Twitter stream start.".timestamp);
         }
     }
 
@@ -65,12 +79,13 @@ class TwitterStream extends EventEmitter {
         if (this.isOn) {
             this.stream.destroy();
             this.isOn = false;
-            console.log("Twitter stream stop.");
+            this.timedReset.stop();
+            console.log("[DD-MM-YY hh:mm] Twitter stream stop.".timestamp);
         }
     }
 
     restart() {
-        console.log("Restarting");
+        console.log("[DD-MM-YY hh:mm] Restarting".timestamp);
         setTimeout(() => {
             this.stop();
             this.start();
