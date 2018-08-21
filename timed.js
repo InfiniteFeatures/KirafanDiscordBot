@@ -26,7 +26,12 @@ class Timed extends EventEmitter {
         this.jobs.reminder = new CronJob({
             cronTime: '0 23 * * *',
             onTick: function() {
-                this.emit('tick', messages.reminder);
+                let day = moment(this.jobs.daily.lastDate()).tz('Asia/Tokyo').format('dddd');
+                if (day === 'Sunday') {
+                    this.emit('tick', messages.reminder['Sunday']);
+                } else {
+                    this.emit('tick', messages.reminder['Normal']);
+                }
             },
             timeZone: 'Asia/Tokyo',
             start: false,

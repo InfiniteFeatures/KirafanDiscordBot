@@ -122,5 +122,8 @@
       }
     }
   },
-  "reminder":"**Reminder**: Only one hour left to complete your dailies!"
+  "reminder": {
+    "Normal": "**Reminder**: Only one hour left to complete your dailies!",
+    "Sunday": "**Reminder**: Only one hour left to complete your dailies, weeklies and the challenge boss!"
+  }
 }
