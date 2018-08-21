@@ -86,8 +86,8 @@ class TwitterStream extends EventEmitter {
 
     restart() {
         console.log("[DD-MM-YY hh:mm] Restarting".timestamp);
+        this.stop();
         setTimeout(() => {
-            this.stop();
             this.start();
         }, 1000);
     }
