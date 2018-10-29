@@ -4,7 +4,7 @@
       "embed": {
         "color": 10683610,
         "thumbnail": {
-          "url": "https://i.imgur.com/jXBSbMf.png"
+          "url": "attachment://Moon.png"
         },
         "title": "Today's Daily Quests",
         "fields":[
@@ -17,13 +17,19 @@
             "value":"Very large amounts of gold"
           }
         ]
-      }
+      },
+      "files": [
+        {
+          "attachment": "img/Moon.png",
+          "name": "Moon.png"
+        }
+      ]
     },
     "Tuesday": {
       "embed": {
         "color": 14354944,
         "thumbnail": {
-          "url": "https://i.imgur.com/oAn6R8z.png"
+          "url": "attachment://Fire.png"
         },
         "title": "Today's Daily Quests",
         "fields":[
@@ -32,13 +38,19 @@
             "value":"Fire-type seeds and evolution materials"
           }
         ]
-      }
+      },
+      "files": [
+        {
+          "attachment": "img/Fire.png",
+          "name": "Fire.png"
+        }
+      ]
     },
     "Wednesday": {
       "embed": {
         "color": 2324186,
         "thumbnail": {
-          "url": "https://i.imgur.com/x2q8VKN.png"
+          "url": "attachment://Water.png"
         },
         "title": "Today's Daily Quests",
         "fields":[
@@ -51,13 +63,19 @@
             "value":"Very large amounts of gold"
           }
         ]
-      }
+      },
+      "files": [
+        {
+          "attachment": "img/Water.png",
+          "name": "Water.png"
+        }
+      ]
     },
     "Thursday": {
       "embed": {
         "color": 46236,
         "thumbnail": {
-          "url": "https://i.imgur.com/D0284V8.png"
+          "url": "attachment://Wind.png"
         },
         "title": "Today's Daily Quests",
         "fields":[
@@ -66,13 +84,19 @@
             "value":"Wind-type seeds and evolution materials"
           }
         ]
-      }
+      },
+      "files": [
+        {
+          "attachment": "img/Wind.png",
+          "name": "Wind.png"
+        }
+      ]
     },
     "Friday": {
       "embed": {
         "color": 16776520,
         "thumbnail": {
-          "url": "https://i.imgur.com/sJi8qZj.png"
+          "url": "attachment://Gold.png"
         },
         "title": "Today's Daily Quests",
         "fields":[
@@ -81,13 +105,19 @@
             "value":"Very large amounts of gold"
           }
         ]
-      }
+      },
+      "files": [
+        {
+          "attachment": "img/Gold.png",
+          "name": "Gold.png"
+        }
+      ]
     },
     "Saturday": {
       "embed": {
         "color": 10436352,
         "thumbnail": {
-          "url": "https://i.imgur.com/ju2UV17.png"
+          "url": "attachment://Earth.png"
         },
         "title": "Today's Daily Quests",
         "fields":[
@@ -100,13 +130,19 @@
             "value":"5★ Limit Break materials and Etoilium"
           }
         ]
-      }
+      },
+      "files": [
+        {
+          "attachment": "img/Earth.png",
+          "name": "Earth.png"
+        }
+      ]
     },
     "Sunday": {
       "embed": {
         "color": 16755214,
         "thumbnail": {
-          "url": "https://i.imgur.com/sIgzyyK.png"
+          "url": "attachment://Sun.png"
         },
         "title": "Today's Daily Quests",
         "fields":[
@@ -119,7 +155,13 @@
             "value":"5★ Limit Break materials and Etoilium"
           }
         ]
-      }
+      },
+      "files": [
+        {
+          "attachment": "img/Sun.png",
+          "name": "Sun.png"
+        }
+      ]
     }
   },
   "reminder": {
