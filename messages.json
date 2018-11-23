@@ -15,6 +15,10 @@
           {
             "name":"Gold",
             "value":"Very large amounts of gold"
+          },
+          {
+            "name":"Training Grounds",
+            "value":"Warrior"
           }
         ]
       },
@@ -36,6 +40,10 @@
           {
             "name":"Fire",
             "value":"Fire-type seeds and evolution materials"
+          },
+          {
+            "name":"Training Grounds",
+            "value":"Knight, Priest"
           }
         ]
       },
@@ -61,6 +69,10 @@
           {
             "name":"Gold",
             "value":"Very large amounts of gold"
+          },
+          {
+            "name":"Training Grounds",
+            "value":"Mage"
           }
         ]
       },
@@ -82,6 +94,10 @@
           {
             "name":"Wind",
             "value":"Wind-type seeds and evolution materials"
+          },
+          {
+            "name":"Training Grounds",
+            "value":"Warrior, Alchemist"
           }
         ]
       },
@@ -103,6 +119,10 @@
           {
             "name":"Gold",
             "value":"Very large amounts of gold"
+          },
+          {
+            "name":"Training Grounds",
+            "value":"Priest, Mage"
           }
         ]
       },
@@ -128,6 +148,10 @@
           {
             "name":"Challenge Boss",
             "value":"5★ Limit Break materials and Etoilium"
+          },
+          {
+            "name":"Training Grounds",
+            "value":"Warrior, Knight"
           }
         ]
       },
@@ -153,6 +177,10 @@
           {
             "name":"Challenge Boss",
             "value":"5★ Limit Break materials and Etoilium"
+          },
+          {
+            "name":"Training Grounds",
+            "value":"Priest, Mage, Alchemist"
           }
         ]
       },
