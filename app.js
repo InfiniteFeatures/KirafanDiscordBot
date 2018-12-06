@@ -43,8 +43,21 @@ client.on("ready", () => {
     //Setup timed events
     client.timed = new Timed();
 
-    client.timed.on('tick', (message) => {
-        server.channels.get(config.get('mainChannel')).send(message).catch(client.error);
+    client.timed.on('tick', (e) => {
+        if (e.event === "reminder")  {
+            let reminderRole = server.roles.get(config.get('reminderRole'));
+            let message = e.message.replace(/{role}/g, reminderRole.toString());
+
+            //That's some nice code
+            reminderRole.setMentionable(true, "Daily ping").then((updated) => {
+                console.log(`Role mentionable: ${updated.mentionable}`);
+                server.channels.get(config.get('mainChannel')).send(message).then(() => {
+                    reminderRole.setMentionable(false, "Daily ping end");
+                }).catch(client.error);
+            });
+        } else {
+            server.channels.get(config.get('mainChannel')).send(e.message).catch(client.error);
+        }
     });
 
     if (config.get('daily') === 'on') {

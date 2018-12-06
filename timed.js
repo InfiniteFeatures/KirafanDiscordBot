@@ -16,7 +16,7 @@ class Timed extends EventEmitter {
             cronTime: '0 0 * * *',
             onTick: function() {
                 let day = moment(this.jobs.daily.lastDate()).tz('Asia/Tokyo').format('dddd');
-                this.emit('tick', messages.daily[day]);
+                this.emit('tick', {message: messages.daily[day], event: "daily"});
             },
             timeZone: 'Asia/Tokyo',
             start: false,
@@ -28,9 +28,9 @@ class Timed extends EventEmitter {
             onTick: function() {
                 let day = moment(this.jobs.daily.lastDate()).tz('Asia/Tokyo').format('dddd');
                 if (day === 'Sunday') {
-                    this.emit('tick', messages.reminder['Sunday']);
+                    this.emit('tick', {message: messages.reminder['Sunday'], event: "reminder"});
                 } else {
-                    this.emit('tick', messages.reminder['Normal']);
+                    this.emit('tick', {message: messages.reminder['Normal'], event: "reminder"});
                 }
             },
             timeZone: 'Asia/Tokyo',

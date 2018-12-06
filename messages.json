@@ -193,7 +193,7 @@
     }
   },
   "reminder": {
-    "Normal": "**Reminder**: Only one hour left to complete your dailies!",
-    "Sunday": "**Reminder**: Only one hour left to complete your dailies, weeklies and the challenge boss!"
+    "Normal": "⚠ {role}: Only one hour left to complete your dailies! ⚠\n*If you want to get mentioned by the daily reminder role, type `+giveme remindme` in the <#391952068581261313> channel.*",
+    "Sunday": "⚠ {role}: Only one hour left to complete your dailies, weeklies and the challenge boss! ⚠\n*If you want to get mentioned by the daily reminder role, type `+giveme remindme` in the <#391952068581261313> channel.*"
   }
 }
