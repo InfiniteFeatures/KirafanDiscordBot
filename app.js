@@ -19,7 +19,7 @@ let server;         //The Kirafan server
 const client = new Discord.Client();
 
 //Client functions
-client.on("ready", () => {
+client.once("ready", () => {
     //When the bot logs in successfully.
 
     //Get the kirafan server (hardcoded)
