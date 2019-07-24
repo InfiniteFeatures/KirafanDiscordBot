@@ -55,6 +55,9 @@ class TwitterStream extends EventEmitter {
                         }
                     }
 
+                    //Embed-proof links in the tweet
+                    fullText.replace(/(https:\/\/t\.co\/\w*)/g,"<$1>");
+
                     //Send to discord
                     this.emit('tweet',`${fullText}\n\nhttps://twitter.com/${event.user.screen_name}/status/${event.id_str}`);
                 } else if (event && event.disconnect) {
