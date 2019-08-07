@@ -15,7 +15,7 @@ class TwitterStream extends EventEmitter {
 
         //Reset the stream every 12 hours (at 3:00 and 15:00) because twitter is a huge shithead and disconnects without telling us
         this.timedReset = new CronJob({
-            cronTime: '0 3,15 * * *',
+            cronTime: '17 3,15 * * *',
             onTick: function() {
                 this.restart();
             },
